@@ -61,3 +61,16 @@ class DangerLevel(models.Model):
     class Meta:
         db_table = 'danger_level'
 
+
+class Product(models.Model):
+    name = models.TextField(blank=False, unique=True)
+    description = models.TextField(blank=True)
+    price = models.CharField(max_length=20)
+    is_available = models.BooleanField(blank=False, default=False)
+    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    picture = models.TextField(blank=True)
+    is_impact_on_environment = models.BooleanField(blank=False, default=False)
+    danger_level = models.ForeignKey(DangerLevel, on_delete=models.DO_NOTHING)
+
+    class Meta:
+        db_table = 'product'
