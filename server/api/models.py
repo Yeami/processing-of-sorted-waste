@@ -53,3 +53,11 @@ class Category(models.Model):
 
     class Meta:
         db_table = 'category'
+
+
+class DangerLevel(models.Model):
+    name = models.CharField(max_length=15, blank=False, unique=True)
+
+    class Meta:
+        db_table = 'danger_level'
+
