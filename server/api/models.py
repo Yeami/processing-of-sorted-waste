@@ -5,7 +5,7 @@ from django.db import models
 from django.utils import timezone
 
 # Create your models here.
-from server.app.managers import CustomUserManager
+from server.api.managers import CustomUserManager
 
 
 class Role(models.Model):

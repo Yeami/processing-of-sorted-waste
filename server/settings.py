@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'server.api',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -142,4 +143,4 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:8080',
 ]
 
-AUTH_USER_MODEL = 'app.AuthUser'
+AUTH_USER_MODEL = 'api.AuthUser'
