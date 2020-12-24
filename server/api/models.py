@@ -45,3 +45,11 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
 
     class Meta:
         db_table = 'auth_user'
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=40, blank=False, unique=True)
+    description = models.TextField(blank=True)
+
+    class Meta:
+        db_table = 'category'
