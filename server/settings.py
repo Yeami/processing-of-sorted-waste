@@ -25,7 +25,7 @@ SECRET_KEY = 'i2elfhz_z#zq^%4dv&cfy(=m+b2n8b05#lc!iw&(tuornnxp_('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -118,3 +118,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:8080',
+]
