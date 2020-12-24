@@ -1,0 +1,16 @@
+- model: api.role
+  pk: 1
+  fields:
+    name: CLIENT
+- model: api.role
+  pk: 2
+  fields:
+    name: MANAGER
+- model: api.role
+  pk: 3
+  fields:
+    name: SUPPORT
+- model: api.role
+  pk: 4
+  fields:
+    name: ADMIN
