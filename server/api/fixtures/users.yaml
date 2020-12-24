@@ -1,0 +1,64 @@
+- model: api.authuser
+  pk: 1
+  fields:
+    password: pbkdf2_sha256$180000$AMpAN3CQWMmt$8ZW69jroQu9I4pJRQTJgMqm3ANMPAnrbUHW0zO/Wg20=
+    last_login: 2020-12-23 16:17:30.460751+00:00
+    is_superuser: true
+    username: admin
+    first_name: Nikita
+    last_name: Ivanov
+    email: admin@posw.com
+    phone: '+380559684753'
+    date_joined: 2020-08-06 15:16:59.422087+00:00
+    address: Khimikiv Ave 40
+    role: 4
+    groups: []
+    user_permissions: []
+- model: api.authuser
+  pk: 2
+  fields:
+    password: pbkdf2_sha256$180000$AMpAN3CQWMmt$8ZW69jroQu9I4pJRQTJgMqm3ANMPAnrbUHW0zO/Wg20=
+    last_login: 2020-12-23 16:21:15.731564+00:00
+    is_superuser: false
+    username: support
+    first_name: Bob
+    last_name: Bobby
+    email: support@posw.com
+    phone: '+380978936534'
+    date_joined: 2020-08-06 15:16:59.422087+00:00
+    address: Khimikiv Ave 42
+    role: 3
+    groups: []
+    user_permissions: []
+- model: api.authuser
+  pk: 3
+  fields:
+    password: pbkdf2_sha256$180000$AMpAN3CQWMmt$8ZW69jroQu9I4pJRQTJgMqm3ANMPAnrbUHW0zO/Wg20=
+    last_login: 2020-08-11 10:20:02.100126+00:00
+    is_superuser: false
+    username: manager
+    first_name: Glob
+    last_name: Globby
+    email: manager@posw.com
+    phone: '+380978983653'
+    date_joined: 2020-08-06 15:16:59.422087+00:00
+    address: Khimikiv Ave 42
+    role: 2
+    groups: []
+    user_permissions: []
+- model: api.authuser
+  pk: 4
+  fields:
+    password: pbkdf2_sha256$180000$AMpAN3CQWMmt$8ZW69jroQu9I4pJRQTJgMqm3ANMPAnrbUHW0zO/Wg20=
+    last_login: 2020-08-12 13:14:32.212564+00:00
+    is_superuser: false
+    username: client
+    first_name: Stich
+    last_name: Chill
+    email: client@posw.com
+    phone: '+380937467718'
+    date_joined: 2020-08-12 12:47:28.172089+00:00
+    address: Khimikiv Ave 38
+    role: 1
+    groups: []
+    user_permissions: []
