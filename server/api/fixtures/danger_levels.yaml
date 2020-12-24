@@ -1,0 +1,16 @@
+- model: api.dangerlevel
+  pk: 1
+  fields:
+    name: LOW
+- model: api.dangerlevel
+  pk: 2
+  fields:
+    name: MEDIUM
+- model: api.dangerlevel
+  pk: 3
+  fields:
+    name: HIGH
+- model: api.dangerlevel
+  pk: 4
+  fields:
+    name: EXTRA HIGH
