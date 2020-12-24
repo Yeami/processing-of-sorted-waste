@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from server.api.models import AuthUser
+from server.api.models import AuthUser, Category
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -26,3 +26,9 @@ class UserSerializer(serializers.ModelSerializer):
             'address',
             'role',
         ]
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'
