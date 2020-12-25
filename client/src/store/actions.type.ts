@@ -1,0 +1,10 @@
+export const LOGIN_USER = 'LOGIN_USER';
+export const LOGOUT_USER = 'LOGOUT_USER';
+export const GET_USER = 'GET_USER';
+export const UPDATE_USER = 'UPDATE_USER';
+export const GET_CATEGORIES = 'GET_CATEGORIES';
+export const GET_PRODUCTS = 'GET_PRODUCTS';
+export const CONFIRM_ORDER = 'CONFIRM_ORDER';
+export const GET_CUSTOMER_ORDERS = 'GET_CUSTOMER_ORDERS';
+export const CREATE_CATEGORY = 'CREATE_CATEGORY';
+export const CREATE_PRODUCT = 'CREATE_PRODUCT';
