@@ -1,29 +1,64 @@
-import Vue from 'vue'
-import VueRouter, { RouteConfig } from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from 'vue';
+import VueRouter, { RouteConfig } from 'vue-router';
 
-Vue.use(VueRouter)
+import { isAuthenticated, isNotAuthenticated } from '@/services/auth.service';
+import TheBasketPage from '@/views/TheBasketPage.vue';
+import TheLoginPage from '@/views/TheLoginPage.vue';
+import TheOrdersPage from '@/views/TheOrdersPage.vue';
+import TheProductsPage from '@/views/TheProductsPage.vue';
+import TheProfilePage from '@/views/TheProfilePage.vue';
+import TheRouterView from '@/views/TheRouterView.vue';
+
+Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: '/login',
+    name: 'login',
+    component: TheLoginPage,
+    beforeEnter: (to, from, next) => isNotAuthenticated(to, from, next),
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
-]
+    path: '/',
+    redirect: '/profile',
+  },
+  {
+    path: '/',
+    component: TheRouterView,
+    beforeEnter: (to, from, next) => isAuthenticated(to, from, next),
+    children: [
+      {
+        path: 'products',
+        name: 'products',
+        component: TheProductsPage,
+      },
+      {
+        path: 'basket',
+        name: 'basket',
+        component: TheBasketPage,
+      },
+      {
+        path: 'profile',
+        name: 'profile',
+        component: TheProfilePage,
+      },
+      {
+        path: 'orders',
+        name: 'orders',
+        component: TheOrdersPage,
+      },
+    ],
+  },
+  {
+    path: '/*',
+    redirect: '/profile',
+  },
+];
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
