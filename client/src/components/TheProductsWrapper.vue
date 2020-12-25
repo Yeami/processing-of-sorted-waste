@@ -29,8 +29,8 @@
         <span>Влияет на окружающую среду:
           <span :style="`color: ${item.is_impact_on_environment ? 'green' : 'red'}`"> {{isAvailable(item.is_impact_on_environment)}}</span>
         </span>
-        <span>Уровень опастности:
-          <a-tag>{{getLevelById(item.danger_level)}}</a-tag>
+        <span>Уровень опасности:
+          <a-tag :color="getLevelColorById(item.danger_level)">{{getLevelById(item.danger_level)}}</a-tag>
         </span>
 
         <a-button
@@ -74,6 +74,10 @@ export default {
   methods: {
     getLevelById(id) {
       return this.dangerLevels.find((level) => level.id === id).name;
+    },
+    getLevelColorById(id) {
+      const level = this.dangerLevels.find((level) => level.id === id);
+      return (level && level.color) ? level.color : '';
     },
     isAvailable(availability) {
       return availability ? 'Да' : 'Нет';
