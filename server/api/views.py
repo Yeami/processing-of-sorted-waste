@@ -85,3 +85,25 @@ class ListCategory(APIView):
         serializer = self.serializer(categories, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class ListDangerLevels(APIView):
+    serializer = DangerLevelSerializer
+    model = DangerLevel
+    http_method_names = ['get', 'post']
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request):
+        danger_levels = self.model.objects.all()
+        serializer = self.serializer(danger_levels, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        cursor = connections['default'].cursor()
+        cursor.execute('''INSERT INTO "danger_level" (name) VALUES (%s)''', [request.data.get('name')])
+
+        levels = list(DangerLevel.objects.raw('''SELECT * FROM danger_level ORDER BY id'''))
+        serializer = self.serializer(levels, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
