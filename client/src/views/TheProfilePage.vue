@@ -1,13 +1,13 @@
 <template>
   <div class="profile-page-wrapper">
-    <h1>Profile page</h1>
+    <h1>Мой профиль</h1>
 
     <div class="profile-content card" v-if="user">
 
       <div class="left-column">
-        <span>Username: {{user.username}}</span>
-        <span>Date joined: {{getDateJoined}}</span>
-        <span>Role: {{user.role}}</span>
+        <span>Имя пользователя: {{user.username}}</span>
+        <span>Дата регистрации: {{getDateJoined}}</span>
+        <span>Роль: {{user.role}}</span>
       </div>
 
       <div class="right-column">
@@ -15,39 +15,39 @@
             :form="form"
             @submit="handleSubmit"
         >
-          <a-form-item label="First name:">
+          <a-form-item label="Имя:">
             <a-input
                 v-decorator="firstName"
-                placeholder="First name"
+                placeholder="Имя"
             />
           </a-form-item>
-          <a-form-item label="Last name:">
+          <a-form-item label="Фамилия:">
             <a-input
                 v-decorator="lastName"
-                placeholder="Last name"
+                placeholder="Фамилия"
             />
           </a-form-item>
-          <a-form-item label="Email:">
+          <a-form-item label="Почта:">
             <a-input
                 v-decorator="email"
-                placeholder="Email"
+                placeholder="Почта"
             />
           </a-form-item>
-          <a-form-item label="Phone:">
+          <a-form-item label="Номер телефона:">
             <a-input
                 v-decorator="phone"
-                placeholder="Phone"
+                placeholder="Номер телефона"
             />
           </a-form-item>
-          <a-form-item label="Address:">
+          <a-form-item label="Адрес проживания:">
             <a-input
                 v-decorator="address"
-                placeholder="Address"
+                placeholder="Адрес проживания"
             />
           </a-form-item>
           <a-form-item>
             <a-button type="primary" html-type="submit">
-              Update data
+              Обновить информацию
             </a-button>
           </a-form-item>
         </a-form>
@@ -56,13 +56,13 @@
       <div class="footer">
         <div class="logout-block">
           <p class="text">
-            Log out from the account
+            Выйти с аккаунта
           </p>
           <a-button
               type="primary"
               @click="logout()"
           >
-            Log out
+            Выход
           </a-button>
         </div>
       </div>
