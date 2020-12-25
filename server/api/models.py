@@ -57,6 +57,7 @@ class Category(models.Model):
 
 class DangerLevel(models.Model):
     name = models.CharField(max_length=15, blank=False, unique=True)
+    color = models.CharField(max_length=15, blank=True, unique=False)
 
     class Meta:
         db_table = 'danger_level'
