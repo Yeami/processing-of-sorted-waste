@@ -102,7 +102,10 @@ class ListDangerLevels(APIView):
 
     def post(self, request):
         cursor = connections['default'].cursor()
-        cursor.execute('''INSERT INTO "danger_level" (name) VALUES (%s)''', [request.data.get('name')])
+        cursor.execute(
+            '''INSERT INTO "danger_level" (name, color) VALUES (%s, %s)''',
+            [request.data.get('name'), request.data.get('color')]
+        )
 
         levels = list(DangerLevel.objects.raw('''SELECT * FROM danger_level ORDER BY id'''))
         serializer = self.serializer(levels, many=True)
@@ -135,7 +138,7 @@ class ListProduct(APIView):
             data.get('price'),
             data.get('isImpact'),
             data.get('isAvailable'),
-            data.get('dangerLevel'),
+            data.get('level'),
             data.get('category'),
             data.get('picture')
         ])
