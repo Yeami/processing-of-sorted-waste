@@ -6,8 +6,18 @@ import router from '@/router';
 import { ApiService } from '@/services/api.service';
 import { setAuthToken, setUserData } from '@/services/auth.service';
 import {
-  CONFIRM_ORDER, CREATE_CATEGORY, CREATE_PRODUCT, GET_CATEGORIES, GET_CUSTOMER_ORDERS, GET_DANGER_LEVELS, GET_PRODUCTS,
-  GET_USER, LOGIN_USER, LOGOUT_USER, UPDATE_USER,
+  CONFIRM_ORDER,
+  CREATE_CATEGORY,
+  CREATE_DANGER_LEVEL,
+  CREATE_PRODUCT,
+  GET_CATEGORIES,
+  GET_CUSTOMER_ORDERS,
+  GET_DANGER_LEVELS,
+  GET_PRODUCTS,
+  GET_USER,
+  LOGIN_USER,
+  LOGOUT_USER,
+  UPDATE_USER,
 } from '@/store/actions.type';
 import {
   CLEAR_BASKET, SET_CATEGORIES, SET_DANGER_LEVELS, SET_ERROR, SET_ORDERS,
@@ -143,6 +153,15 @@ export default new Vuex.Store({
       ApiService.post('/category', category)
         .then((response) => {
           context.commit(SET_CATEGORIES, response.data);
+        })
+        .catch(({ response }) => {
+          context.commit(SET_ERROR, response.data);
+        });
+    },
+    [CREATE_DANGER_LEVEL]: (context: any, level) => {
+      ApiService.post('/danger-level', level)
+        .then((response) => {
+          context.commit(SET_DANGER_LEVELS, response.data);
         })
         .catch(({ response }) => {
           context.commit(SET_ERROR, response.data);
