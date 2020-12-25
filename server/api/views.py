@@ -3,11 +3,13 @@ from datetime import datetime
 from django.shortcuts import render
 
 # Create your views here.
-from rest_framework import status
+from rest_framework import status, permissions
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
+from server.api.models import AuthUser
 from server.api.serializers import UserSerializer
 
 
@@ -32,3 +34,28 @@ class AuthTokenLogin(ObtainAuthToken):
             },
             status=status.HTTP_200_OK
         )
+
+
+class Me(APIView):
+    serializer = UserSerializer
+    model = AuthUser
+    http_method_names = ['get', 'patch']
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request):
+        # me = self.model.objects.get(id=request.user.id)
+        me = AuthUser.objects.raw('''SELECT * FROM auth_user WHERE id = %s ORDER BY id''', [request.user.id])[0]
+        serializer = self.serializer(me)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def patch(self, request):
+        user = self.model.objects.get(id=request.user.id)
+        serializer = self.serializer(user, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
