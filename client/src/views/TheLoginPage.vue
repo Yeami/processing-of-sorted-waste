@@ -1,6 +1,6 @@
 <template>
   <div class="login-page-wrapper">
-    <a-card title="Jewelry Store">
+    <a-card title="Cherkasy POSW">
       <a-form
           :form="form"
           class="login-form"
@@ -9,7 +9,7 @@
         <a-form-item>
           <a-input
               v-decorator="username"
-              placeholder="Username"
+              placeholder="Имя пользователя"
           >
             <a-icon slot="prefix" type="user" class="input-icon"/>
           </a-input>
@@ -19,7 +19,7 @@
           <a-input
               v-decorator="password"
               type="password"
-              placeholder="Password"
+              placeholder="Пароль"
           >
             <a-icon slot="prefix" type="lock" class="input-icon"/>
           </a-input>
@@ -27,7 +27,7 @@
 
         <a-form-item>
           <a-button type="primary" html-type="submit" class="login-form-button">
-            Login
+            Авторизоваться
           </a-button>
         </a-form-item>
       </a-form>
