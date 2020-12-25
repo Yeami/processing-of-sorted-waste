@@ -12,7 +12,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from server.api.models import AuthUser, Category, Product, DangerLevel, Order
+from server.api.models import AuthUser, Category, Product, DangerLevel, Order, OrderProducts
 from server.api.serializers import UserSerializer, CategorySerializer, ProductSerializer, DangerLevelSerializer
 
 
@@ -176,3 +176,36 @@ class ListOrder(APIView):
             )
 
         return Response(status=status.HTTP_200_OK)
+
+
+class ListManagerOrder(APIView):
+    http_method_names = ['get']
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request):
+        response = []
+
+        orders = list(Order.objects.raw('''SELECT * FROM "order" WHERE worker_id = %s''', [request.user.id]))
+
+        for order in orders:
+            item = {
+                'id': order.id,
+                'note': order.note,
+                'created_at': order.created_at,
+                'customer': UserSerializer(order.customer).data,
+                'products': [],
+            }
+
+            products = list(
+                OrderProducts.objects.raw('''SELECT * FROM "order_products" WHERE order_id = %s''', [order.id])
+            )
+
+            for product in products:
+                item['products'].append({
+                    'product': ProductSerializer(product.product).data,
+                    'amount': product.amount,
+                })
+
+            response.append(item)
+
+        return Response(response, status=status.HTTP_200_OK)
