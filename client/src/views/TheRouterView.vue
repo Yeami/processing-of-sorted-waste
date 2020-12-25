@@ -3,8 +3,8 @@
     <div class="navbar card">
 
       <div class="brand">
-        <a-icon type="sketch" class="logo"/>
-        <span class="title">Jewelry Store</span>
+        <a-icon type="global" class="logo"/>
+        <span class="title">Cherkasy POSW</span>
       </div>
 
       <div class="navbar-items">
@@ -21,7 +21,7 @@
             class="navbar-item"
             to="/orders"
         >
-          Orders
+          Заказы
         </router-link>
       </div>
 
@@ -64,17 +64,17 @@ export default {
       links: [
         {
           id: 0,
-          text: 'Products',
+          text: 'Продукты переработки',
           page: '/products',
         },
         {
           id: 1,
-          text: 'Basket',
+          text: 'Корзина',
           page: '/basket',
         },
         {
           id: 2,
-          text: 'Profile',
+          text: 'Мой профиль',
           page: '/profile',
         },
       ],
