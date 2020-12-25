@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.db import connections
 from django.shortcuts import render
 
 # Create your views here.
@@ -9,8 +10,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from server.api.models import AuthUser
-from server.api.serializers import UserSerializer
+from server.api.models import AuthUser, Category, Product, DangerLevel
+from server.api.serializers import UserSerializer, CategorySerializer, ProductSerializer, DangerLevelSerializer
 
 
 class AuthTokenLogin(ObtainAuthToken):
@@ -105,5 +106,41 @@ class ListDangerLevels(APIView):
 
         levels = list(DangerLevel.objects.raw('''SELECT * FROM danger_level ORDER BY id'''))
         serializer = self.serializer(levels, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class ListProduct(APIView):
+    serializer = ProductSerializer
+    model = Product
+    http_method_names = ['get', 'post']
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request):
+        # products = self.model.objects.all()
+        products = list(Product.objects.raw('''SELECT * FROM product ORDER BY id'''))
+        serializer = self.serializer(products, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        cursor = connections['default'].cursor()
+        cursor.execute('''
+            INSERT INTO "product" (name, description, price, is_impact_on_environment, is_available, danger_level_id, category_id, picture)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        ''', [
+            data.get('name'),
+            data.get('description'),
+            data.get('price'),
+            data.get('isImpact'),
+            data.get('isAvailable'),
+            data.get('dangerLevel'),
+            data.get('category'),
+            data.get('picture')
+        ])
+
+        products = list(Product.objects.raw('''SELECT * FROM product ORDER BY id'''))
+        serializer = self.serializer(products, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
