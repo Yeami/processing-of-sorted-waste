@@ -1,0 +1,7 @@
+- model: api.order
+  pk: 1
+  fields:
+    customer: 1
+    worker: 3
+    note: Test
+    created_at: 2020-12-25 02:55:27.516314+00:00
