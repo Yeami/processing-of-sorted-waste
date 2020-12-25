@@ -6,11 +6,11 @@ import router from '@/router';
 import { ApiService } from '@/services/api.service';
 import { setAuthToken, setUserData } from '@/services/auth.service';
 import {
-  CONFIRM_ORDER, CREATE_CATEGORY, CREATE_PRODUCT, GET_CATEGORIES, GET_CUSTOMER_ORDERS, GET_PRODUCTS,
+  CONFIRM_ORDER, CREATE_CATEGORY, CREATE_PRODUCT, GET_CATEGORIES, GET_CUSTOMER_ORDERS, GET_DANGER_LEVELS, GET_PRODUCTS,
   GET_USER, LOGIN_USER, LOGOUT_USER, UPDATE_USER,
 } from '@/store/actions.type';
 import {
-  CLEAR_BASKET, SET_CATEGORIES, SET_ERROR, SET_ORDERS,
+  CLEAR_BASKET, SET_CATEGORIES, SET_DANGER_LEVELS, SET_ERROR, SET_ORDERS,
   SET_PRODUCTS, SET_TOKEN, SET_USER, UPDATE_BASKET,
 } from '@/store/mutations.type';
 
@@ -22,6 +22,7 @@ export default new Vuex.Store({
     errors: null,
     token: null,
     categories: null,
+    dangerLevels: null,
     products: null,
     basket: [] as any,
     basketSum: 0,
@@ -39,6 +40,9 @@ export default new Vuex.Store({
     },
     categories(state) {
       return state.categories;
+    },
+    dangerLevels(state) {
+      return state.dangerLevels;
     },
     products(state) {
       return state.products;
@@ -94,6 +98,15 @@ export default new Vuex.Store({
       ApiService.get('/category')
         .then((response) => {
           context.commit(SET_CATEGORIES, response.data);
+        })
+        .catch(({ response }) => {
+          context.commit(SET_ERROR, response.data);
+        });
+    },
+    [GET_DANGER_LEVELS]: (context: any) => {
+      ApiService.get('/danger-level')
+        .then((response) => {
+          context.commit(SET_DANGER_LEVELS, response.data);
         })
         .catch(({ response }) => {
           context.commit(SET_ERROR, response.data);
@@ -158,6 +171,9 @@ export default new Vuex.Store({
     },
     [SET_CATEGORIES](state, categories) {
       state.categories = categories;
+    },
+    [SET_DANGER_LEVELS](state, dangerLevels) {
+      state.dangerLevels = dangerLevels;
     },
     [SET_PRODUCTS](state, products) {
       state.products = products;
