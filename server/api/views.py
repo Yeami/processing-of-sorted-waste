@@ -59,3 +59,29 @@ class Me(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ListCategory(APIView):
+    serializer = CategorySerializer
+    model = Category
+    http_method_names = ['get', 'post']
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request):
+        # categories = self.model.objects.all()
+        categories = list(Category.objects.raw('''SELECT * FROM category ORDER BY id'''))
+        serializer = self.serializer(categories, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        cursor = connections['default'].cursor()
+        cursor.execute(
+            '''INSERT INTO "category" (name, description) VALUES (%s, %s)''',
+            [request.data.get('name'), request.data.get('description')]
+        )
+
+        categories = list(Category.objects.raw('''SELECT * FROM category ORDER BY id'''))
+        serializer = self.serializer(categories, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
